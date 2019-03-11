@@ -5,12 +5,12 @@
   "device": "PlayStation 4",
   "firmware": "",
   "description": {
-    "default": "Blocks the browser from remembering and returning to the last opened page on start.",
-    "en": "Blocks the browser from remembering and returning to the last opened page on start."
+    "default": "Blocks the browser from remembering and returning to the last opened page on start. Run again to enable/disable.",
+    "en": "Blocks the browser from remembering and returning to the last opened page on start. Run again to enable/disable."
   },
   "author": "Stooged",
   "url": "https://github.com/stooged/History-Blocker",
-  "redirect": true,
+  "redirect": false,
   "reload": false,
   "offline": true
 }
