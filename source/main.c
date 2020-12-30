@@ -10,12 +10,12 @@ int _main(struct thread *td) {
 
   initSysUtil();
 
-  char hfile[256];
   SceUserServiceLoginUserIdList userIdList;
 
   if (getUserIDList(&userIdList) == 0) {
     for (int i = 0; i < SCE_USER_SERVICE_MAX_LOGIN_USERS; i++) {
       if (userIdList.userId[i] != -1 && userIdList.userId[i] != 0) {
+        char hfile[256];
         sprintf(hfile, "/user/home/%x/webbrowser/endhistory.txt", userIdList.userId[i]);
         if (!file_exists(hfile) && !dir_exists(hfile)) {
           mkdir(hfile, 0777);
