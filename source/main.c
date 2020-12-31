@@ -12,6 +12,8 @@ int _main(struct thread *td) {
 
   SceUserServiceLoginUserIdList userIdList;
 
+  printf_notification("Running History Blocker");
+
   if (getUserIDList(&userIdList) == 0) {
     for (int i = 0; i < SCE_USER_SERVICE_MAX_LOGIN_USERS; i++) {
       if (userIdList.userId[i] != -1 && userIdList.userId[i] != 0) {
@@ -30,8 +32,12 @@ int _main(struct thread *td) {
             printf_notification("History blocker enabled for: %s\n\nRun payload again to disable", getUserName(userIdList.userId[i]));
           }
         }
+      } else {
+        printf_notification("Unable to get user ID");
       }
     }
+  } else {
+    printf_notification("Unable to get user ID list");
   }
 
   return 0;
