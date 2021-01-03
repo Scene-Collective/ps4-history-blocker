@@ -11,14 +11,15 @@ int _main(struct thread *td) {
   initSysUtil();
 
   SceUserServiceLoginUserIdList userIdList;
+  memset_s(&userIdList, sizeof(SceUserServiceLoginUserIdList), 0, sizeof(SceUserServiceLoginUserIdList));
 
   printf_notification("Running History Blocker");
 
   if (getUserIDList(&userIdList) == 0) {
     for (int i = 0; i < SCE_USER_SERVICE_MAX_LOGIN_USERS; i++) {
       if (userIdList.userId[i] != -1 && userIdList.userId[i] != 0) {
-        char hfile[256];
-        sprintf(hfile, "/user/home/%x/webbrowser/endhistory.txt", userIdList.userId[i]);
+        char hfile[PATH_MAX] = {0};
+        snprintf_s(hfile, sizeof(hfile), "/user/home/%x/webbrowser/endhistory.txt", userIdList.userId[i]);
         if (!file_exists(hfile) && !dir_exists(hfile)) {
           mkdir(hfile, 0777);
           printf_notification("History blocker enabled for: %s\n\nRun payload again to disable", getUserName(userIdList.userId[i]));
@@ -32,8 +33,6 @@ int _main(struct thread *td) {
             printf_notification("History blocker enabled for: %s\n\nRun payload again to disable", getUserName(userIdList.userId[i]));
           }
         }
-      } else {
-        printf_notification("Unable to get user ID");
       }
     }
   } else {
